@@ -172,11 +172,13 @@ const buildProductCards = (arr) => {
                 <img src=${arr[i].imageUrl} class="card-img-top" alt="${arr[i].name}">
                 <div class="card-body">
                 <h5 class="card-title">${arr[i].name}</h5>
-                <p class="card-text"> ${arr[i].health}</p>
-               <a class="btn btn-primary" href="#" id="feed" role="button">Feed</a>
-                <button class="btn btn-primary" id="pet" type="submit">Pet</button>
-                <input class="btn btn-primary dinoCard" type="submit" value="Remove">
-               <input class="btn btn-primary" type="reset" value="Adventure">
+                <div class="progress">
+                  <div class="progress-bar" style="width:${arr[i].health}%">${arr[i].health}%</div>
+                </div>
+               <button class="btn btn-primary feed-button">Feed</button>
+                <button class="btn btn-primary pet-button">Pet</button>
+                <button class="btn btn-primary remove-button">Remove</button>
+               <button class="btn btn-primary adventure-button"> Adventure </button>
 
                 </div>
                 </div>`;
@@ -196,17 +198,6 @@ const buildProductCards = (arr) => {
 
 // END OF PRODUCT CARDS//
 
-
-
-
-
-
-
-
-
-
-
-
 // ADD DINO FORM //
 $("#addDino").click(() => {
   let newDino = {};
@@ -224,29 +215,59 @@ $("#addDino").click(() => {
   buildProductCards(dinos);
 });
 
-// $(".dinoCard").click(function(){
-//   let dinoCard = $(this).parentElement.parentElement;
+// REMOVE DINO //
+$(document).on("click", ".remove-button", (e) => {
+  let dinoCard = e.currentTarget.parentElement.parentElement;
 
-//   dinos = dinos.filter(dino => dino.id != dinoCard.id);
+  dinos = dinos.filter((dino) => dino.id != dinoCard.id);
 
-//   buildProductCards(dinos);
-// });
-
-// ALERTS FOR FEED - PET BUTTONS//
-$(document).ready(function(){
-$("#feed").click(function(){
-  alert("Thank you for feeding me!");
-});
+  buildProductCards(dinos);
 });
 
-$(document).ready(function(){
-$("#pet").click(function(){
-  alert("Thank you for petting me!");
+// FEED BUTTON//
+
+$(document).on("click", ".feed-button", (e) => {
+  let dinoID = e.currentTarget.parentElement.parentElement.id;
+
+  dinos.forEach((dino, index) => {
+    if (dino.id === dinoID) {
+      dino.health += 10;
+    }
+  });
+
+  buildProductCards(dinos);
 });
+
+// PET BUTTON//
+
+$(document).on("click", ".pet-button", (e) => {
+  let dinoID = e.currentTarget.parentElement.parentElement.id;
+
+  dinos.forEach((dino, index) => {
+    if (dino.id === dinoID) {
+      dino.health += 3;
+    }
+  });
+
+  buildProductCards(dinos);
 });
 
+// ADVENTURE BUTTON//
 
+$(document).on("click", ".adventure-button", (e) => {
+  let dinoID = e.currentTarget.parentElement.parentElement.id;
 
+  dinos.forEach((dino, index) => {
+    if (dino.id === dinoID) {
+      let adventure = adventures[Math.floor(Math.random() * adventures.length)];
+
+      dino.adventures.push(adventure);
+
+      dino.health -= adventure.healthHit;
+    }
+  });
+  buildProductCards(dinos);
+});
 
 const init = () => {
   buildProductCards(dinos);
