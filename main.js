@@ -221,7 +221,7 @@ $("#addDino").click(() => {
 //   buildProductCards(dinos);
 // });
 
-
+// ALERTS FOR FEED - PET BUTTONS//
 $(document).ready(function(){
 $("#feed").click(function(){
   alert("Thank you for feeding me!");
