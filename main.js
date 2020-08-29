@@ -196,7 +196,6 @@ const buildProductCards = (arr) => {
 
 // END OF PRODUCT CARDS//
 
-<<<<<<< HEAD
 
 
 
@@ -206,7 +205,8 @@ const buildProductCards = (arr) => {
 
 
 
-=======
+
+
 // ADD DINO FORM //
 $("#addDino").click(() => {
   let newDino = {};
@@ -244,7 +244,6 @@ $("#pet").click(function(){
   alert("Thank you for petting me!");
 });
 });
->>>>>>> b62c12429bed14f762c25fd5f7f84eca42c87238
 
 
 
