@@ -169,7 +169,7 @@ const buildProductCards = (arr) => {
   for (let i = 0; i < arr.length; i++) {
     let dinoDomString = "";
     dinoDomString = `<div id="${arr[i].id}" class="card" style="width: 18rem;">
-                <img src=${arr[i].imageUrl} class="card-img-top" alt="${arr[i].name}">
+                <img src=${arr[i].imageUrl} class="card-img-top" style="height: 10rem;"alt="${arr[i].name}">
                 <div class="card-body">
                 <h5 class="card-title">${arr[i].name}</h5>
                 <div class="progress">
