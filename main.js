@@ -1,6 +1,6 @@
 "use strict";
 // DINO DATA //
-const dinos = [
+let dinos = [
   {
     id: "dino1",
     name: "Milo",
@@ -42,7 +42,7 @@ const dinos = [
     adventures: [],
     health: 100,
     imageUrl:
-      "https://lh3.googleusercontent.com/proxy/_rJSL88ErOEvgHl5SInWOEolOdikwIMcKWPv9iqZzt3IUkD33WdG6d9qd8TmNJFSiszTXm7JeGQPocmB_BZErKxt__25LOpW75dmnVuy0nuY0PatX2cIYA-C",
+      "https://cdn.pixabay.com/photo/2018/02/04/09/21/dinosaur-3129391__340.png",
   },
   {
     id: "dino5",
@@ -168,25 +168,25 @@ const buildProductCards = (arr) => {
 
   for (let i = 0; i < arr.length; i++) {
     let dinoDomString = "";
-    dinoDomString = `<div class="card" style="width: 18rem;">
+    dinoDomString = `<div id="${arr[i].id}" class="card" style="width: 18rem;">
                 <img src=${arr[i].imageUrl} class="card-img-top" alt="${arr[i].name}">
                 <div class="card-body">
                 <h5 class="card-title">${arr[i].name}</h5>
                 <p class="card-text"> ${arr[i].health}</p>
-               <a class="btn btn-primary" href="#" role="button">Feed</a>
-                <button class="btn btn-primary" type="submit">Pet</button>
-                <input class="btn btn-primary" type="submit" value="Remove">
+               <a class="btn btn-primary" href="#" id="feed" role="button">Feed</a>
+                <button class="btn btn-primary" id="pet" type="submit">Pet</button>
+                <input class="btn btn-primary dinoCard" type="submit" value="Remove">
                <input class="btn btn-primary" type="reset" value="Adventure">
 
                 </div>
                 </div>`;
-      if(arr[i].health < 1 ){
-        graveyardDomString += dinoDomString
-      } else if(arr[i].health <= 50) {
-        hospitalDomString += dinoDomString
-      } else {
-        kennelDomString += dinoDomString
-      }
+    if (arr[i].health < 1) {
+      graveyardDomString += dinoDomString;
+    } else if (arr[i].health <= 50) {
+      hospitalDomString += dinoDomString;
+    } else {
+      kennelDomString += dinoDomString;
+    }
   }
 
   printToDom("Graveyard", graveyardDomString);
@@ -195,6 +195,47 @@ const buildProductCards = (arr) => {
 };
 
 // END OF PRODUCT CARDS//
+
+// ADD DINO FORM //
+$("#addDino").click(() => {
+  let newDino = {};
+
+  newDino.id = `dino${dinos.length}+1`;
+  newDino.name = $("#NameInput").val();
+  newDino.type = $("#TypeInput").val();
+  newDino.age = $("#AgeInput").val();
+  newDino.owner = $("#OwnerInput").val();
+  newDino.adventures = [];
+  newDino.health = 55;
+  newDino.imageURL = $("#ImageInput").val();
+
+  dinos.push(newDino);
+  buildProductCards(dinos);
+});
+
+// $(".dinoCard").click(function(){
+//   let dinoCard = $(this).parentElement.parentElement;
+
+//   dinos = dinos.filter(dino => dino.id != dinoCard.id);
+
+//   buildProductCards(dinos);
+// });
+
+// ALERTS FOR FEED - PET BUTTONS//
+$(document).ready(function(){
+$("#feed").click(function(){
+  alert("Thank you for feeding me!");
+});
+});
+
+$(document).ready(function(){
+$("#pet").click(function(){
+  alert("Thank you for petting me!");
+});
+});
+
+
+
 
 const init = () => {
   buildProductCards(dinos);
