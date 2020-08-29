@@ -196,6 +196,19 @@ const buildProductCards = (arr) => {
 
 // END OF PRODUCT CARDS//
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 const init = () => {
   buildProductCards(dinos);
 };
