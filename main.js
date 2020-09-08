@@ -260,17 +260,62 @@ $(document).on("click", ".adventure-button", (e) => {
   dinos.forEach((dino, index) => {
     if (dino.id === dinoID) {
       let adventure = adventures[Math.floor(Math.random() * adventures.length)];
+        adventure.timestamp = Date();
 
       dino.adventures.push(adventure);
 
       dino.health -= adventure.healthHit;
+      $('#adventureModal').html(adventureModal(dino));
+$('#admodal').modal();
     }
   });
   buildProductCards(dinos);
 });
 
+//ADVENTURE MODAL//
+const adventureModal= (dino) => {
+  let adventureDomString = "";
+;
+  adventureDomString =`
+<div id=admodal class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+    <div id="${dino.id}" class="card" style="width: 18rem;">
+    <img src=${dino.imageUrl} class="card-img-top" style="height: 10rem;"alt="${dino.name}">
+    <div class="card-body">
+    <h5 class="card-title">${dino.name}</h5>
+    <div class="progress">
+      <div class="progress-bar" style="width:${dino.health}%">${dino.health}%</div>
+    </div>
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Date</th>
+      <th scope="col">Type</th>
+    </tr>
+  </thead>
+  <tbody>`
+for (let i = 0; i < dino.adventures.length; i++) {
+  adventureDomString += 
+`<tr>
+      <th scope="row">${dino.adventures[i].id}</th>
+      <td>${dino.adventures[i].timestamp}</td>
+      <td>${dino.adventures[i].title}</td>
+    </tr>`
+};
+
+  adventureDomString +=  ` </tbody>
+    </table>
+    </div>
+  </div>
+</div>`
+return adventureDomString;
+};
 const init = () => {
   buildProductCards(dinos);
+  
 };
+  
 
 init();
